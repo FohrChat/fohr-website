@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request Access — Fohr</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Fohr <span>Say more.</span></a>
+  <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="fohr.html">Fohr</a></li>
+    <li><a href="assistant.html">Assistant</a></li>
+    <li><a href="keyboard.html">Keyboard</a></li>
+    <li><a href="request-access.html" class="nav-cta active">Request access</a></li>
+  </ul>
+</nav>
+
+<section class="signup" style="min-height: 100vh; padding-top: 120px;">
+  <div class="signup-inner">
+    <div class="signup-header reveal">
+      <p class="section-label">Early access</p>
+      <h2 class="signup-title">Join the pilot.</h2>
+      <p class="signup-desc">Fohr is invite-only right now. We are looking for a small group of people to help shape it. If that sounds like you, tell us a little about yourself.</p>
+    </div>
+
+    <div id="signup-form" class="reveal reveal-delay-1">
+      <div class="form-group">
+        <label class="form-label">Who are you?</label>
+        <div class="radio-group">
+          <label class="radio-option" onclick="selectRadio(this, 'who')">
+            <input type="radio" name="who" value="aphasia">
+            <div class="radio-dot"></div>
+            <span class="radio-text">Someone with aphasia</span>
+          </label>
+          <label class="radio-option" onclick="selectRadio(this, 'who')">
+            <input type="radio" name="who" value="family">
+            <div class="radio-dot"></div>
+            <span class="radio-text">A family member or carer</span>
+          </label>
+          <label class="radio-option" onclick="selectRadio(this, 'who')">
+            <input type="radio" name="who" value="professional">
+            <div class="radio-dot"></div>
+            <span class="radio-text">A speech and language therapist</span>
+          </label>
+          <label class="radio-option" onclick="selectRadio(this, 'who')">
+            <input type="radio" name="who" value="organisation">
+            <div class="radio-dot"></div>
+            <span class="radio-text">An organisation or commissioner</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What devices do you mainly use?</label>
+        <div class="checkbox-group">
+          <div class="checkbox-option" onclick="toggleCheckbox(this)">
+            <input type="checkbox" value="iphone">
+            <div class="checkbox-box"></div>
+            <span class="checkbox-text">iPhone</span>
+          </div>
+          <div class="checkbox-option" onclick="toggleCheckbox(this)">
+            <input type="checkbox" value="android">
+            <div class="checkbox-box"></div>
+            <span class="checkbox-text">Android</span>
+          </div>
+          <div class="checkbox-option" onclick="toggleCheckbox(this)">
+            <input type="checkbox" value="windows">
+            <div class="checkbox-box"></div>
+            <span class="checkbox-text">Windows laptop</span>
+          </div>
+          <div class="checkbox-option" onclick="toggleCheckbox(this)">
+            <input type="checkbox" value="mac">
+            <div class="checkbox-box"></div>
+            <span class="checkbox-text">Mac</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">What is the hardest thing about communicating right now? A few words is fine.</label>
+        <textarea class="form-textarea" rows="3" placeholder="Finding the right words, being understood in busy situations..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Your name</label>
+        <input type="text" class="form-input" placeholder="First name is fine">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input type="email" class="form-input" placeholder="we will only use this to contact you about access">
+      </div>
+
+      <button class="form-submit" onclick="submitForm()">Request access</button>
+      <p class="form-note">Spaces are limited. We read every response personally.</p>
+    </div>
+
+    <div id="signup-success" class="form-success">
+      <div class="form-success-icon">✓</div>
+      <h3 class="form-success-title">Thank you.</h3>
+      <p class="form-success-text">We have received your request. We will be in touch personally when your access is ready.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Fohr <small>Say more.</small></div>
+  <div class="footer-contact">Get in touch: <a href="mailto:hello@fohr.chat">hello@fohr.chat</a></div>
+  <div class="footer-legal">Fohr Limited. All rights reserved.</div>
+</footer>
+
+<script>
+  function selectRadio(el, name) {
+    document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+      input.closest('.radio-option').classList.remove('selected');
+    });
+    el.classList.add('selected');
+  }
+  function toggleCheckbox(el) {
+    el.classList.toggle('selected');
+    el.querySelector('input').checked = el.classList.contains('selected');
+  }
+  async function submitForm() {
+    const email = document.querySelector('input[type="email"]').value;
+    const name = document.querySelector('input[type="text"]').value;
+    const challenge = document.querySelector('textarea').value;
+    const who = document.querySelector('.radio-option.selected input') ? document.querySelector('.radio-option.selected input').value : '';
+    const devices = [...document.querySelectorAll('.checkbox-option.selected input')].map(el => el.value).join(', ');
+    if (!email || !email.includes('@')) {
+      document.querySelector('input[type="email"]').style.borderColor = '#e05c5c';
+      return;
+    }
+    const btn = document.querySelector('.form-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/xvzwzgbk', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify({email, name, who, devices, challenge})
+      });
+      if (res.ok) {
+        document.getElementById('signup-form').style.display = 'none';
+        document.getElementById('signup-success').style.display = 'block';
+      } else {
+        btn.textContent = 'Request access';
+        btn.disabled = false;
+      }
+    } catch(e) {
+      btn.textContent = 'Request access';
+      btn.disabled = false;
+    }
+  }
+  function toggleMobileNav() {
+    document.querySelector('.nav-hamburger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.nav-hamburger').classList.remove('open');
+      document.querySelector('.nav-links').classList.remove('open');
+    });
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

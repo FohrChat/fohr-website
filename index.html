@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fohr. Say more.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Fohr <span>Say more.</span></a>
+  <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="fohr.html">Fohr</a></li>
+    <li><a href="assistant.html">Assistant</a></li>
+    <li><a href="keyboard.html">Keyboard</a></li>
+    <li><a href="request-access.html" class="nav-cta">Request access</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Communication, reimagined</p>
+  <h1 class="hero-title">Fohr.</h1>
+  <p class="hero-subtitle">Say more.</p>
+  <p class="hero-desc">For people with aphasia, finding the right words is the hardest part. Fohr surfaces what you mean to say.</p>
+  <div class="hero-actions">
+    <a href="#story" class="btn-primary">Our story</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="story-inner">
+    <div class="reveal">
+      <p class="story-label">Why we built this</p>
+      <h2 class="story-title">Caroline knew what she wanted to say.</h2>
+      <p class="story-text">In 2018, Caroline had a stroke at 38. Before that, she had spent 15 years as an NHS Mental Health Nurse and later as a <strong>Serious Investigation Lead</strong>, working on cases where poor communication had cost lives.</p>
+      <p class="story-text">After her stroke, she was left with expressive aphasia. The words she needed were there. Getting them out was not.</p>
+      <p class="story-text"><strong>Caroline Sutton is co-founder of Fohr.</strong> Every feature, every design decision, every word in this app has been shaped by her experience. She does not just use Fohr. She helped build it.</p>
+      <p class="story-text">The name Fohr comes from the only word Caroline could say in the days after her stroke. The spelling is hers — her first attempt to write the sound that was coming out. It felt right to build everything around it.</p>
+      <p class="story-text" style="color: var(--navy); font-weight: 400;">Aphasia affects over 350,000 people in the UK. It masks intelligence. It does not destroy it.</p>
+      <p class="story-text" style="color: var(--navy); font-weight: 400;">Our primary focus will always be aphasia — one of the most underserved conditions in the world, and one that too often leaves people voiceless. While our tools have relevance across other communication conditions, we will never lose sight of who we are building for.</p>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="story-card">
+        <p class="story-quote">She knows exactly what she thinks. She just needs something that can keep up with her. Caroline is not our inspiration. She is our co-founder.</p>
+        <p class="story-attribution">Chris Sutton, co-founder</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bundle" id="bundle">
+  <div class="bundle-inner">
+    <div class="reveal">
+      <p class="section-label" style="color:var(--copper)">Better together</p>
+      <h2 class="section-title" style="color:var(--navy)">Every device. One subscription.</h2>
+    </div>
+    <div class="bundle-card reveal reveal-delay-1">
+      <span class="bundle-badge">The Fohr Bundle</span>
+      <h3 class="bundle-title">Phone and desktop, covered.</h3>
+      <p class="bundle-desc">Fohr on your phone for communication in the moment. Fohr Assistant on your computer for everything else. One subscription, all devices.</p>
+      <div class="bundle-items">
+        <div class="bundle-item">
+          <div class="bundle-item-name">Fohr</div>
+          <div class="bundle-item-desc">Mobile communication tool</div>
+        </div>
+        <div class="bundle-plus">+</div>
+        <div class="bundle-item">
+          <div class="bundle-item-name">Fohr Assistant</div>
+          <div class="bundle-item-desc">AI desktop companion</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Fohr <small>Say more.</small></div>
+  <div class="footer-contact">Get in touch: <a href="mailto:hello@fohr.chat">hello@fohr.chat</a></div>
+  <div class="footer-legal">Fohr Limited. All rights reserved.</div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+  function toggleMobileNav() {
+    document.querySelector('.nav-hamburger').classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.nav-hamburger').classList.remove('open');
+      document.querySelector('.nav-links').classList.remove('open');
+    });
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
